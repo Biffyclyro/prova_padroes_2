@@ -1,0 +1,28 @@
+﻿No pacote br.ufsm.csi.pp.model foi criada a classe DAOGenerico, da qual foi extraída a interface
+DAOGenericoInterface. Esta classe tem por objetivo servir como um DAO (Data Access Object) para
+qualquer classe do modelo, já que ela foi desenvolvida usando Hibernate e o recurso de tipos genéricos
+da linguagem Java.
+A implementação do DAO com Hibernate, pode ser observada, mas isto é opcional já que não precisará ser alterada.
+
+Implemente o seguinte padrão de projeto (Valor 5,0):
+
+a) DECORATOR
+
+Implemente um Decorator para o DAOGenerico que a cada método chamado no DAO, que gere uma ação no banco de dados, seja
+gerada uma tupla na tabela LOG com as seguintes entradas:
+    - Long id: id da entrada de log (primary key);
+    - String tipo: tipo da entrada de log que pode ser uma dentre CRIAÇÃO - REMOÇÃO - ATUALIZAÇÃO - LEITURA, dependendo
+        do método chamado no DAO.
+    - Long idObjeto: id do objeto que está sendo consultado/alterado pelo DAO.
+    - String classe: classe do objeto que o DAO está consultando/alterando.
+
+    Obs. 1: A implementação pode ser com Hibernate ou via JDBC (as conexões podem ser obtidas pelo DataSource disponível no
+        próprio DAO.
+    Obs. 2: Deverão ser criadas todas as classes necessárias para dar suporte ao Decorator, embora não seja necessária
+        a criação de um caso de teste (main).
+
+--------------------------------------------------------------------------------------------------------------------------
+
+EXPLICAÇÃO SOBRE A IMPLEMENTAÇÃO: (explicar a função das classes
+e outros detalhes pertinentes da sua implementação - OBRIGATÓRIO)
+
