@@ -85,7 +85,7 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
         try {
 
             final var metodo = classe.getDeclaredMethod("getId");
-            if (metodo != null && metodo.getReturnType() == Long.class) {
+            if ( metodo.getReturnType() == Long.class) {
 
                 final var idObjeto = (Long) metodo.invoke(t);
 
@@ -95,7 +95,7 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
                 IllegalAccessException |
                 InvocationTargetException e) {
 
-            e.printStackTrace();
+          throw new RuntimeException(e);
         }
 
 
