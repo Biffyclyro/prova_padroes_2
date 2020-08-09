@@ -9,8 +9,7 @@ public class Log {
     private long idObjeto;
     private String classe;
 
-    public Log(long id, String tipo, long idObjeto, String classe) {
-        this.id = id;
+    public Log(String tipo, long idObjeto, String classe) {
         this.tipo = tipo;
         this.idObjeto = idObjeto;
         this.classe = classe;
