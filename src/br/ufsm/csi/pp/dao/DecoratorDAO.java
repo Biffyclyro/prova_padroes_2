@@ -1,18 +1,16 @@
 package br.ufsm.csi.pp.dao;
 
 import br.ufsm.csi.pp.model.Log;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate4.HibernateTemplate;
-import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
-@Repository
 public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
-    private final DAOGenericoInterface daoGenericoInterface;
-    private final HibernateTemplate hibernateTemplate;
+    private final DAOGenericoInterface<T> daoGenericoInterface;
+    private final SessionFactory sessionFactory;
 
     private enum TipoEntrada {
         CRIAÇÃO,
@@ -23,15 +21,15 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
 
 
     public DecoratorDAO(DAOGenericoInterface daoGenericoInterface,
-                        HibernateTemplate hibernateTemplate) {
+                        SessionFactory sessionFactory) {
 
         this.daoGenericoInterface = daoGenericoInterface;
-        this.hibernateTemplate = hibernateTemplate;
+        this.sessionFactory= sessionFactory;
     }
 
     @Override
     public T getById(Serializable id) {
-        final var t = (T) this.daoGenericoInterface.getById(id);
+        final var t = this.daoGenericoInterface.getById(id);
         final var log = this.buildLog(t, TipoEntrada.LEITURA);
 
         this.insertLog(log);
@@ -73,7 +71,10 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
 
 
     private Log insertLog(Log l) {
-        l.setId((Long) this.hibernateTemplate.save(l));
+        final var session = this.sessionFactory.openSession();
+        session.beginTransaction();
+        l.setId((Long) session.save(l));
+        session.getTransaction().commit();
 
         return l;
     }
