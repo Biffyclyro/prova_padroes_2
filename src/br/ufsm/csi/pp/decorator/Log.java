@@ -1,12 +1,17 @@
-package br.ufsm.csi.pp.model;
+package br.ufsm.csi.pp.decorator;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Log {
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String tipo;
-    private long idObjeto;
+    private Long idObjeto;
     private String classe;
 
     public Log(String tipo, long idObjeto, String classe) {

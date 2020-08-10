@@ -1,8 +1,7 @@
-package br.ufsm.csi.pp.dao;
+package br.ufsm.csi.pp.decorator;
 
-import br.ufsm.csi.pp.model.Log;
+import br.ufsm.csi.pp.dao.DAOGenericoInterface;
 import org.hibernate.SessionFactory;
-import org.springframework.orm.hibernate4.HibernateTemplate;
 
 import javax.sql.DataSource;
 import java.io.Serializable;
@@ -71,7 +70,7 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
 
 
     private Log insertLog(Log l) {
-        final var session = this.sessionFactory.openSession();
+        final var session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         l.setId((Long) session.save(l));
         session.getTransaction().commit();
