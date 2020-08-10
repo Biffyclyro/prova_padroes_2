@@ -66,7 +66,7 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
 
     @Override
     public DataSource getDataSource() {
-        return null;
+        return this.daoGenericoInterface.getDataSource();
     }
 
 
@@ -90,7 +90,10 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
                 final var idObjeto = (Long) metodo.invoke(t);
 
                 return new Log(tipo.name(), idObjeto, classe.getName());
+            } else {
+                throw new UnsupportedOperationException("id não é do tipo Long");
             }
+
         } catch (NoSuchMethodException |
                 IllegalAccessException |
                 InvocationTargetException e) {
@@ -99,7 +102,6 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
         }
 
 
-        return null;
     }
 
 }
