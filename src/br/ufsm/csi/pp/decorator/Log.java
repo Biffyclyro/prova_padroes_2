@@ -21,7 +21,7 @@ public class Log {
     }
 
     public long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(long id) {
@@ -29,7 +29,7 @@ public class Log {
     }
 
     public String getTipo() {
-        return tipo;
+        return this.tipo;
     }
 
     public void setTipo(String tipo) {
@@ -37,7 +37,7 @@ public class Log {
     }
 
     public long getIdObjeto() {
-        return idObjeto;
+        return this.idObjeto;
     }
 
     public void setIdObjeto(long idObjeto) {
@@ -45,7 +45,7 @@ public class Log {
     }
 
     public String getClasse() {
-        return classe;
+        return this.classe;
     }
 
     public void setClasse(String classe) {

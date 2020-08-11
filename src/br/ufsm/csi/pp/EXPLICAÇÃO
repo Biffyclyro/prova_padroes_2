@@ -1,15 +1,15 @@
-A classe DecoratorDAO implementa a interface DAOGenericoInterface, seu construtor recebe uma implementaçãa da mesma interface
+A classe DecoratorDAO<T> implementa a interface DAOGenericoInterface<T>, seu construtor recebe uma implementaçãa da mesma interface
 e uma SessionFactory, utilizada pelo hibernate.
 
 A classe Log é a classe que será instanciada para gerar um objeto que será salvo no banco de dados.
 
-Existem dois métodos privados na DecoratorDAO, buildLog(), e insertLog(). O método buildLog() cria uma
-instância da classe Log. Este método recebe além do objeto de tipo T como parâmetro, também recebe um enum, que diz o
+Existem dois métodos privados na DecoratorDAO<T>, buildLog(), e insertLog(). O método buildLog() cria uma
+instância da classe Log. Este método recebe um objeto de tipo T como parâmetro, e também um enum que diz o
 tipo de transação que está sendo feita em cada método.
 
-A classe log é populada acessando pro reflexão a classe de tipo T, a classe Log é criada sem o atributo Id, que receberá
+A classe log é populada acessando por reflexão a classe de tipo T, a classe Log é criada sem o atributo Id, que receberá
 um valor gerado pelo banco de dados.
 
 O método insertLog(), utilizando o hibernate, faz um insert do objeto Log em uma tabela de mesmo nome no banco de dados.
-Apos esta inserção, o método save(), da classe Session, retorna a chave primária geráda no banco, e essa chave é atribuiída ao Id do Log.
+Após esta inserção, o método save(), da classe Session, retorna a chave primária gerada no banco, e essa chave é atribuiída ao Id do Log.
 
