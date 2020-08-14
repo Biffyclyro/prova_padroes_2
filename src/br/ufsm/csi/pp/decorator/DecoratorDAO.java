@@ -12,18 +12,18 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
     private final SessionFactory sessionFactory;
 
     private enum TipoEntrada {
-        CRIAÇÃO,
-        REMOÇÃO,
-        ATUALIZAÇÃO,
+        CRIACAO,
+        REMOCAO,
+        ATUALIZACAO,
         LEITURA
     }
 
 
-    public DecoratorDAO(DAOGenericoInterface daoGenericoInterface,
+    public DecoratorDAO(DAOGenericoInterface<T> daoGenericoInterface,
                         SessionFactory sessionFactory) {
 
         this.daoGenericoInterface = daoGenericoInterface;
-        this.sessionFactory= sessionFactory;
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
     @Override
     public void update(T t) {
         this.daoGenericoInterface.update(t);
-        final var log = this.buildLog(t, TipoEntrada.ATUALIZAÇÃO);
+        final var log = this.buildLog(t, TipoEntrada.ATUALIZACAO);
 
         this.insertLog(log);
 
@@ -48,7 +48,7 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
     @Override
     public void remove(T t) {
         this.daoGenericoInterface.remove(t);
-        final var log = this.buildLog(t, TipoEntrada.REMOÇÃO);
+        final var log = this.buildLog(t, TipoEntrada.REMOCAO);
 
         this.insertLog(log);
     }
@@ -56,7 +56,7 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
     @Override
     public void create(T t) {
         this.daoGenericoInterface.create(t);
-        final var log = this.buildLog(t, TipoEntrada.CRIAÇÃO);
+        final var log = this.buildLog(t, TipoEntrada.CRIACAO);
 
         this.insertLog(log);
 
@@ -78,13 +78,13 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
         return l;
     }
 
-    private Log buildLog(T t, TipoEntrada tipo )  {
+    private Log buildLog(T t, TipoEntrada tipo) {
 
         final var classe = t.getClass();
         try {
 
             final var metodo = classe.getDeclaredMethod("getId");
-            if ( metodo.getReturnType() == Long.class) {
+            if (metodo.getReturnType() == Long.class) {
 
                 final var idObjeto = (Long) metodo.invoke(t);
 
@@ -97,7 +97,7 @@ public class DecoratorDAO<T> implements DAOGenericoInterface<T> {
                 IllegalAccessException |
                 InvocationTargetException e) {
 
-          throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
 
 
